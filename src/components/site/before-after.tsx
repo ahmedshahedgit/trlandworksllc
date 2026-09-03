@@ -35,16 +35,19 @@ function Compare({
       <figure>
         <div
           ref={ref}
-          className="relative aspect-4/3 w-full cursor-ew-resize overflow-hidden border border-border select-none"
+          className="relative aspect-4/3 w-full cursor-ew-resize touch-none overflow-hidden border border-border select-none"
           onPointerDown={(e) => {
             dragging.current = true;
-            (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+            e.currentTarget.setPointerCapture(e.pointerId);
             setFromClientX(e.clientX);
           }}
           onPointerMove={(e) => {
             if (dragging.current) setFromClientX(e.clientX);
           }}
-          onPointerUp={() => (dragging.current = false)}
+          onPointerUp={(e) => {
+            dragging.current = false;
+            e.currentTarget.releasePointerCapture(e.pointerId);
+          }}
           onPointerCancel={() => (dragging.current = false)}
         >
           <img
@@ -52,6 +55,7 @@ function Compare({
             alt={afterAlt}
             loading="lazy"
             decoding="async"
+            draggable={false}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div
@@ -63,6 +67,7 @@ function Compare({
               alt={beforeAlt}
               loading="lazy"
               decoding="async"
+              draggable={false}
               className="h-full w-full object-cover"
             />
           </div>
