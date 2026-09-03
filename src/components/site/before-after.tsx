@@ -55,6 +55,7 @@ function Compare({
             alt={afterAlt}
             loading="lazy"
             decoding="async"
+            draggable={false}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div
@@ -66,6 +67,7 @@ function Compare({
               alt={beforeAlt}
               loading="lazy"
               decoding="async"
+              draggable={false}
               className="h-full w-full object-cover"
             />
           </div>
